@@ -118,7 +118,7 @@ public class Model {
      */
     public boolean atLeastOneMoveExists() {
         if(emptySpaceExists()){
-            return true
+            return true;
         }else{
             for(int x = 0; x < 4; x ++){
                 for(int y = 0; y < 4; y++){
@@ -153,7 +153,19 @@ public class Model {
         int targetY = y;
 
         // TODO: Tasks 5, 6, and 10. Fill in this function.
+        while (targetY != 3 && tile(x, targetY + 1) == null) {
+            targetY += 1;
+        }
+        if (targetY < 3) {
+            Tile upperTile = board.tile(x, targetY + 1);
+            if (upperTile.value() == myValue && !upperTile.wasMerged()) {
+                board.move(x, targetY + 1, currTile);
+                return;
+            }
+        }
+        board.move(x, targetY, currTile);
     }
+
 
     /** Handles the movements of the tilt in column x of the board
      * by moving every tile in the column as far up as possible.
